@@ -8,7 +8,7 @@ public class CriterePrix implements Critere {
 	}
 	@Override
 	public boolean estSatisfaitPar(Voiture v) {	
-		return v.getPrix()<prixst;
+		return v.getPrix()<=prixst;
 	}
 
 }

@@ -1,17 +1,18 @@
 package tp3;
-/*
- 
- Les voitures sont définies par une marque, un nom de modèle,
-  une année de production et un prix de location à la journée. 
-  Pour simplifier, les deux premiers paramètres seront des objets
-  de la classe String et les deux derniers seront des int. Deux 
-  voitures sont considérées égales si tous leurs attributs sont égaux.
- */
+
 public class Voiture {
 	private String marque;
 	private String modele;
 	private int anneeProd;
 	private int prix;
+	public Voiture(String marque, String modele, int anneeProd, int prix) {
+		super();
+		this.marque = marque;
+		this.modele = modele;
+		this.anneeProd = anneeProd;
+		this.prix = prix;
+	}
+	
 	public String getMarque() {
 		return marque;
 	}
@@ -51,6 +52,5 @@ public class Voiture {
 	public String toString() {
 		return "Marque : "+marque+"Modele : "+modele+"Annee de Prod : "+anneeProd +"Prix : "+prix;
 	}
-	
 	
 }

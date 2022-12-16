@@ -25,4 +25,8 @@ public class Agence {
 		}
 		
 	}
+	public void ajouterVoiture(Voiture v) {
+		voitures.add(v);
+	}
+	
 }

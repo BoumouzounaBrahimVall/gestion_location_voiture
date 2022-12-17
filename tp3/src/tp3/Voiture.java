@@ -6,7 +6,6 @@ public class Voiture {
 	private int anneeProd;
 	private int prix;
 	public Voiture(String marque, String modele, int anneeProd, int prix) {
-		super();
 		this.marque = marque;
 		this.modele = modele;
 		this.anneeProd = anneeProd;

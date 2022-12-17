@@ -28,15 +28,20 @@ public class Main {
 				,new Voiture("BMW", "A3", 2018, 67) );
 		
 		agence.loueVoiture(
-				new Client("A321", "vall", "brahim", "Mr")
-				,new Voiture("BMW", "A7", 2018, 110) );
+				new Client("X873", "Hamza", "El", "Mr")
+				,new Voiture("Renaut", "2008", 2021, 170) );
 		
-		Iterator<Voiture> it=agence.lesVoituresLouees();
+		agence.loueVoiture(
+				new Client("X873", "Hamza", "El", "Mr")
+				,new Voiture("Renaut", "2008", 2021, 170) );
+		
+		/*Iterator<Voiture> it=agence.lesVoituresLouees();
 		while(it.hasNext())
 		{
 			System.out.println(it.next());
-		}
+		}*/
 		
+		agence.afficherLocation();
 	}	
 	
 }

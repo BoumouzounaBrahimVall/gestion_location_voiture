@@ -1,16 +1,18 @@
 package tp3;
 import java.util.ArrayList;
-import java.util.HashMap;
+//import java.util.HashMap;
 import java.util.List;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.TreeMap;
+
 public class Agence {
 	private List<Voiture> voitures;
 	private Map<Client, Voiture> locations ;
 	public Agence()
 	{
 		voitures= new ArrayList<>();
-		locations=new HashMap<>();
+		locations=new TreeMap<>();
 	}
 	
 	public Iterator<Voiture> selectionne (Critere c) {
@@ -78,5 +80,11 @@ public class Agence {
 			tmp.add(entry.getValue());
 		}
 		return tmp.iterator();
+	}
+	public void afficherLocation()
+	{
+		locations.forEach(
+				(k,v)->System.out.println("---------------------\nClient: \n\t"+
+											k+"\nVoiture loue: \n\t"+v));
 	}
 }

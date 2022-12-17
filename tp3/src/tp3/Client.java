@@ -4,7 +4,7 @@ package tp3;
  On supposera que les clients sont identifiés par un nom,
   un prénom, un CIN et une civilité (M., Mlle, Mme)
  */
-public class Client {
+public class Client implements Comparable<Client> {
 	private String CIN;
 	private String nom;
 	private String prenom;
@@ -76,6 +76,11 @@ public class Client {
 	public String toString() {
 		
 		return "CIN: "+CIN+" Nom et prenom: "+civilite+" "+nom+" "+prenom;
+	}
+
+	@Override
+	public int compareTo(Client o) {
+		return this.nom.compareTo(o.nom);
 	}
 	
 }

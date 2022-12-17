@@ -50,7 +50,7 @@ public class Voiture {
 	}
 	@Override
 	public String toString() {
-		return "Marque : "+marque+"Modele : "+modele+"Annee de Prod : "+anneeProd +"Prix : "+prix;
+		return "Marque : "+marque+" Modele : "+modele+" Annee de Prod : "+anneeProd +" Prix : "+prix;
 	}
 	
 }

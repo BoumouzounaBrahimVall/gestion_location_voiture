@@ -2,7 +2,7 @@ package tp3;
 
 public class CriterePrix implements Critere {
 
-	private static int prixst;
+	private final int prixst;
 	public CriterePrix(int pr) {
 		prixst=pr;
 	}

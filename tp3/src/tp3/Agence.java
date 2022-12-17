@@ -46,7 +46,7 @@ public class Agence {
 							if(!estLoueur(client))
 							{
 								locations.put(client, v); 
-							}
+							}else throw new Exception();
 						}catch (Exception e) {
 							System.out.println("client loueur ");
 						}

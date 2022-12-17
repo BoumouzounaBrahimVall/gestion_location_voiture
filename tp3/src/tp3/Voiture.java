@@ -39,8 +39,8 @@ public class Voiture {
 	
 	@Override
 	public boolean equals(Object obj) {
-		
-		if(!obj.getClass().equals(this.getClass())) return false;
+		if(obj==this) return true;
+		if(!(obj instanceof Voiture)) return false;
 		
 		return ((this.marque!=null)&&(this.marque.equals(((Voiture) obj).getMarque()))&&
 				(this.anneeProd==((Voiture)obj).getAnneeProd())&&

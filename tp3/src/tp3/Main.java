@@ -1,5 +1,7 @@
 package tp3;
 
+import java.util.Iterator;
+
 public class Main {
 	public static void main(String[] args) {
 		Agence agence =new Agence();
@@ -19,8 +21,22 @@ public class Main {
 		crit.addCritere(new CriterePrix(120));
 		crit.addCritere(new CritereAnnee(2009));
 		
-		agence.afficheSelection(crit);
-
+		//agence.afficheSelection(crit);
+		
+		agence.loueVoiture(
+				new Client("A321", "vall", "brahim", "Mr")
+				,new Voiture("BMW", "A3", 2018, 67) );
+		
+		agence.loueVoiture(
+				new Client("A321", "vall", "brahim", "Mr")
+				,new Voiture("BMW", "A7", 2018, 110) );
+		
+		Iterator<Voiture> it=agence.lesVoituresLouees();
+		while(it.hasNext())
+		{
+			System.out.println(it.next());
+		}
+		
 	}	
 	
 }

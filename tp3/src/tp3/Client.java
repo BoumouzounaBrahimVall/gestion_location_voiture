@@ -44,15 +44,34 @@ public class Client {
 	
 	@Override
 	public boolean equals(Object obj) {
+		if(obj==this) return true;
+		if(!(obj instanceof Client)) return false;
+		final Client other = (Client) obj;
 		
-		if(!obj.getClass().equals(this.getClass())) return false;
-		
-		return ((this.CIN!=null)&&(this.CIN.equals(((Client) obj).getCIN()))&&
-				(this.nom!=null)&&(this.nom.equals(((Client) obj).getNom()))&&
-				(this.prenom!=null)&&(this.prenom.equals(((Client) obj).getPrenom()))&&
-				(this.civilite!=null)&&(this.civilite.equals(((Client) obj).getCivilite()))
-				);
+		if ((this.CIN == null) ? (other.CIN != null) : !this.CIN.equals(other.CIN)) {
+            return false;
+        }
+        if ((this.nom == null) ? (other.nom != null) : !this.nom.equals(other.nom)) {
+            return false;
+        }
+        if ((this.prenom == null) ? (other.prenom != null) : !this.prenom.equals(other.prenom)) {
+            return false;
+        }
+        if ((this.civilite == null) ? (other.civilite != null) : !this.civilite.equals(other.civilite)) {
+            return false;
+        }
+        return true;
 	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+        int result = 1;
+        result = prime * result
+                + ((CIN == null) ? 0 : CIN.hashCode());
+        return result;
+	}
+
 	@Override
 	public String toString() {
 		

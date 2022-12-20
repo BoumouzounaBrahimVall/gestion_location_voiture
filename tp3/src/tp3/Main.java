@@ -1,7 +1,5 @@
 package tp3;
 
-import java.util.Iterator;
-
 public class Main {
 	public static void main(String[] args) {
 		Agence agence =new Agence();

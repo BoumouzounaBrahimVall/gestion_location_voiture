@@ -1,15 +1,17 @@
 package tp3;
 
 public class Voiture {
+	private String matricule;
 	private String marque;
 	private String modele;
 	private int anneeProd;
 	private int prix;
-	public Voiture(String marque, String modele, int anneeProd, int prix) {
+	public Voiture(String marque, String modele, int anneeProd, int prix,String matricule) {
 		this.marque = marque;
 		this.modele = modele;
 		this.anneeProd = anneeProd;
 		this.prix = prix;
+		this.matricule=matricule;
 	}
 	
 	public String getMarque() {
@@ -49,7 +51,7 @@ public class Voiture {
 	}
 	@Override
 	public String toString() {
-		return "Marque : "+marque+" Modele : "+modele+" Annee de Prod : "+anneeProd +" Prix : "+prix;
+		return " Marque : "+marque+" Modele : "+modele+" Annee de Prod : "+anneeProd +" Prix : "+prix;
 	}
 	
 }

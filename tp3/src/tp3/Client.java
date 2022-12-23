@@ -1,4 +1,7 @@
 package tp3;
+
+import java.util.Objects;
+
 /*
  Un client ne peut louer qu'un véhicule à la fois. 
  On supposera que les clients sont identifiés par un nom,
@@ -43,34 +46,23 @@ public class Client implements Comparable<Client> {
 	}
 	
 	@Override
+	public int hashCode() {
+		return Objects.hash(CIN, civilite, nom, prenom);
+	}
+
+	@Override
 	public boolean equals(Object obj) {
-		if(obj==this) return true;
-		if(!(obj instanceof Client)) return false;
-		final Client other = (Client) obj;
-		
-		if ((this.CIN == null) ? (other.CIN != null) : !this.CIN.equals(other.CIN)) {
-            return false;
-        }
-        if ((this.nom == null) ? (other.nom != null) : !this.nom.equals(other.nom)) {
-            return false;
-        }
-        if ((this.prenom == null) ? (other.prenom != null) : !this.prenom.equals(other.prenom)) {
-            return false;
-        }
-        if ((this.civilite == null) ? (other.civilite != null) : !this.civilite.equals(other.civilite)) {
-            return false;
-        }
-        return true;
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Client other = (Client) obj;
+		return Objects.equals(CIN, other.CIN) && Objects.equals(civilite, other.civilite)
+				&& Objects.equals(nom, other.nom) && Objects.equals(prenom, other.prenom);
 	}
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-        int result = 1;
-        result = prime * result
-                + ((CIN == null) ? 0 : CIN.hashCode());
-        return result;
-	}
 
 	@Override
 	public String toString() {
@@ -80,7 +72,9 @@ public class Client implements Comparable<Client> {
 
 	@Override
 	public int compareTo(Client o) {
-		return this.nom.compareTo(o.nom);
+		int cmp=this.nom.compareTo(o.nom);
+		if(cmp==0) this.prenom.compareTo(o.prenom);
+		return cmp;
 	}
 	
 }

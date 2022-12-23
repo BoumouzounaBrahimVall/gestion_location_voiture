@@ -12,6 +12,10 @@ public class InterCritere  implements Critere{
 	{
 		lesCriteres.add(c);
 	}
+	public void viderCritere()
+	{
+		lesCriteres.clear();
+	}
 	@Override
 	public boolean estSatisfaitPar(Voiture v) {
 		for(Critere crit : lesCriteres)

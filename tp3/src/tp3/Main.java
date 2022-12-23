@@ -14,28 +14,22 @@ public class Main {
 		agence.ajouterVoiture(new Voiture("Renaut", "2C34", 2009, 146,"443V93"));
 		agence.ajouterVoiture(new Voiture("Renaut", "2008", 2021, 170,"765Q09"));
 		
-		InterCritere crit=new InterCritere();
-		crit.addCritere(new CritereMarque("Renaut"));
-		crit.addCritere(new CriterePrix(120));
-		crit.addCritere(new CritereAnnee(2009));
+	////	InterCritere crit=new InterCritere();
+	//	crit.addCritere(new CritereMarque("Renaut"));
+	////	crit.addCritere(new CriterePrix(120));
+	//	crit.addCritere(new CritereAnnee(2009));
 		
 		
 		
 		//agence.afficheSelection(crit);
 		
-		agence.loueVoiture(
-				new Client("A321", "vall", "brahim", "Mr")
-				,new Voiture("BMW", "A3", 2018, 67,"123D23") );
+	//	agence.loueVoiture(	new Client("A321", "vall", "brahim", "Mr"),new Voiture("BMW", "A3", 2018, 67,"123D23") );
 		
-		agence.loueVoiture(
-				new Client("X873", "Hamza", "El", "Mr")
-				,new Voiture("Renaut", "2008", 2021, 170,"765Q09") );
+		//agence.loueVoiture(new Client("X873", "Hamza", "El", "Mr"),new Voiture("Renaut", "2008", 2021, 170,"765Q09") );
 		
-		agence.loueVoiture(
-				new Client("X873", "Hamza", "El", "Mr")
-				,new Voiture("Renaut", "2008", 2021, 170,"765Q09") );
+		//agence.loueVoiture(	new Client("X873", "Hamza", "El", "Mr"),new Voiture("Renaut", "2008", 2021, 170,"765Q09") );
 		
-		System.out.println(agence.getClient("A321"));
+	//	System.out.println(agence.getClient("A321"));
 		
 		/*
 		 Iterator<Voiture> it=agence.lesVoituresLouees();
@@ -45,6 +39,7 @@ public class Main {
 		}*/
 		
 		//agence.afficherLocation();
+		agence.menu();
 		
 	}	
 	

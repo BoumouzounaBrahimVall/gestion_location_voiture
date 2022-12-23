@@ -89,7 +89,7 @@ public class Client implements Comparable<Client> {
 		cin = clavier.nextLine();
 		System.out.println("Donner la civilite du client");
 		civilite = clavier.nextLine();
-		return new Client(nom, prenom, cin, civilite);
+		return new Client(cin, prenom,nom, civilite);
 	}
 
 }

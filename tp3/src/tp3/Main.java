@@ -19,19 +19,23 @@ public class Main {
 		crit.addCritere(new CriterePrix(120));
 		crit.addCritere(new CritereAnnee(2009));
 		
+		
+		
 		//agence.afficheSelection(crit);
 		
 		agence.loueVoiture(
 				new Client("A321", "vall", "brahim", "Mr")
-				,new Voiture("BMW", "A3", 2018, 67,"223D43") );
+				,new Voiture("BMW", "A3", 2018, 67,"123D23") );
 		
 		agence.loueVoiture(
 				new Client("X873", "Hamza", "El", "Mr")
-				,new Voiture("Renaut", "2008", 2021, 170,"166D23") );
+				,new Voiture("Renaut", "2008", 2021, 170,"765Q09") );
 		
 		agence.loueVoiture(
 				new Client("X873", "Hamza", "El", "Mr")
-				,new Voiture("Renaut", "2008", 2021, 170,"1903D23") );
+				,new Voiture("Renaut", "2008", 2021, 170,"765Q09") );
+		
+		System.out.println(agence.getClient("A321"));
 		
 		/*
 		 Iterator<Voiture> it=agence.lesVoituresLouees();
@@ -40,7 +44,7 @@ public class Main {
 			System.out.println(it.next());
 		}*/
 		
-		agence.afficherLocation();
+		//agence.afficherLocation();
 		
 	}	
 	

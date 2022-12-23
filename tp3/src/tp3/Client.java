@@ -1,6 +1,7 @@
 package tp3;
 
 import java.util.Objects;
+import java.util.Scanner;
 
 /*
  Un client ne peut louer qu'un véhicule à la fois. 
@@ -76,5 +77,19 @@ public class Client implements Comparable<Client> {
 		if(cmp==0) this.prenom.compareTo(o.prenom);
 		return cmp;
 	}
-	
+
+	public static Client Saisir_Client() {
+		Scanner clavier = new Scanner(System.in);
+		String prenom, nom, cin, civilite;
+		System.out.println("Donner Le nom du client ");
+		nom = clavier.nextLine();
+		System.out.println("Donner Le prenom du client ");
+		prenom = clavier.nextLine();
+		System.out.println("Donner le cin du client");
+		cin = clavier.nextLine();
+		System.out.println("Donner la civilite du client");
+		civilite = clavier.nextLine();
+		return new Client(nom, prenom, cin, civilite);
+	}
+
 }

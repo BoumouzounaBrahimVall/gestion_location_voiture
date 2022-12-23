@@ -34,11 +34,32 @@ public class Agence {
 		}
 
 	}
-
-	public void ajouterVoiture(Voiture v) {
-		voitures.add(v);
+	private boolean containsV(final String matricule){
+	    return voitures.stream().anyMatch(o -> matricule.equals(o.getMatricule()));
 	}
 
+	public void ajouterVoiture(Voiture v) {
+		try {
+			if(containsV(v.getMatricule())) {
+				throw new Exception();
+			}else {
+				voitures.add(v);
+				System.out.println("voiture ajoutee avec succes");
+			}
+		} catch (Exception e) {
+			System.out.println("le matricule : ("+v.getMatricule()+") correspond a une voiture deja ajoutee");
+		}
+	}
+	public void supprimerVoiture(String v) {
+		try{
+			if(!voitures.removeIf(vt-> vt.getMatricule().equals(v)))
+				throw new Exception();
+			else System.out.println("suppression avec succes");
+		}catch (Exception e) {
+			System.out.println("echec de suppression matricule ne correspond a aucune voiture");
+		}
+	}
+	
 	public void loueVoiture(Client client, Voiture v) {
 
 		try {
@@ -178,7 +199,8 @@ public class Agence {
 				ajouterVoiture(Saisir_Voiture());
 			}
 			case '2'->{
-				
+				System.out.println("entrer le matricule de la voiture a supprimer de l'agence ");
+				supprimerVoiture(scan.nextLine());
 			}
 			case '3'->{
 				

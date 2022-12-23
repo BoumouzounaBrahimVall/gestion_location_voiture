@@ -11,7 +11,7 @@ public class Voiture {
 		this.modele = modele;
 		this.anneeProd = anneeProd;
 		this.prix = prix;
-		this.matricule=matricule;
+		this.setMatricule(matricule);
 	}
 	
 	public String getMarque() {
@@ -52,6 +52,14 @@ public class Voiture {
 	@Override
 	public String toString() {
 		return " Marque : "+marque+" Modele : "+modele+" Annee de Prod : "+anneeProd +" Prix : "+prix;
+	}
+
+	public String getMatricule() {
+		return matricule;
+	}
+
+	public void setMatricule(String matricule) {
+		this.matricule = matricule;
 	}
 	
 }

@@ -1,5 +1,8 @@
 package tp3;
 
+import java.util.*;
+
+
 public class Main {
 	public static void main(String[] args) {
 		Agence agence =new Agence();
@@ -39,7 +42,19 @@ public class Main {
 		}*/
 		
 		//agence.afficherLocation();
-		agence.menu();
+		//agence.menu();
+		TreeSet<String> l=new TreeSet<String>();
+		l.add("vall");
+		l.add("all");
+
+		Iterator<String> l2=l.iterator();
+		for(String S:l) {
+			System.out.println(S);
+		}
+		
+		while(l2.hasNext()) {
+			System.out.println(l2.next());
+		}
 		
 	}	
 	

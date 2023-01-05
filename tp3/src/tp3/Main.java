@@ -17,18 +17,9 @@ public class Main {
 		agence.ajouterVoiture(new Voiture("Renaut", "2C34", 2009, 146,"443V93"));
 		agence.ajouterVoiture(new Voiture("Renaut", "2008", 2021, 170,"765Q09"));
 		
-	////	InterCritere crit=new InterCritere();
-	//	crit.addCritere(new CritereMarque("Renaut"));
-	////	crit.addCritere(new CriterePrix(120));
-	//	crit.addCritere(new CritereAnnee(2009));
+		agence.loueVoiture(	new Client("A321", "vall", "brahim", "Mr"),new Voiture("BMW", "A3", 2018, 67,"123D23") );
 		
-		
-		
-		//agence.afficheSelection(crit);
-		
-	//	agence.loueVoiture(	new Client("A321", "vall", "brahim", "Mr"),new Voiture("BMW", "A3", 2018, 67,"123D23") );
-		
-		//agence.loueVoiture(new Client("X873", "Hamza", "El", "Mr"),new Voiture("Renaut", "2008", 2021, 170,"765Q09") );
+		agence.loueVoiture(new Client("X873", "Hamza", "El", "Mr"),new Voiture("Renaut", "2008", 2021, 170,"765Q09") );
 		
 		//agence.loueVoiture(	new Client("X873", "Hamza", "El", "Mr"),new Voiture("Renaut", "2008", 2021, 170,"765Q09") );
 		
@@ -42,19 +33,7 @@ public class Main {
 		}*/
 		
 		//agence.afficherLocation();
-		//agence.menu();
-		TreeSet<String> l=new TreeSet<String>();
-		l.add("vall");
-		l.add("all");
-
-		Iterator<String> l2=l.iterator();
-		for(String S:l) {
-			System.out.println(S);
-		}
-		
-		while(l2.hasNext()) {
-			System.out.println(l2.next());
-		}
+		agence.menu();
 		
 	}	
 	

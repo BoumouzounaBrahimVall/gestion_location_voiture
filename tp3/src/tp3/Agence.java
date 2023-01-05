@@ -1,6 +1,7 @@
 package tp3;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Iterator;
 import java.util.Map;
@@ -14,6 +15,7 @@ public class Agence {
 	public Agence() {
 		voitures = new ArrayList<>();
 		locations = new TreeMap<>();
+		//locations=new HashMap<>();
 	}
 
 	public Iterator<Voiture> selectionne(Critere c) {
@@ -127,7 +129,7 @@ public class Agence {
 				throw new Exception();
 			} else {
 				voitures.add(v);
-				System.out.println("voiture ajoutee avec succes");
+			//	System.out.println("voiture ajoutee avec succes");
 			}
 		} catch (Exception e) {
 			System.out.println("le matricule : (" + v.getMatricule() + ") correspond a une voiture deja ajoutee");

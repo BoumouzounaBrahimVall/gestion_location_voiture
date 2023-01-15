@@ -9,7 +9,7 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 public class Agence {
-	private List<Voiture> voitures;
+	public List<Voiture> voitures;
 	private Map<Client, Voiture> locations;
 
 	public Agence() {
@@ -119,7 +119,7 @@ public class Agence {
 			}
 		}
 	}
-	private boolean containsV(final String matricule) {
+	public boolean containsV(final String matricule) {
 		return voitures.stream().anyMatch(o -> matricule.equals(o.getMatricule()));
 	}
 
@@ -129,7 +129,6 @@ public class Agence {
 				throw new Exception();
 			} else {
 				voitures.add(v);
-			//	System.out.println("voiture ajoutee avec succes");
 			}
 		} catch (Exception e) {
 			System.out.println("le matricule : (" + v.getMatricule() + ") correspond a une voiture deja ajoutee");

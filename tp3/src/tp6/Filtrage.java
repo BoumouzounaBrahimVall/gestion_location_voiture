@@ -37,33 +37,75 @@ public class Filtrage extends JFrame implements ActionListener{
 		
 		
 		labels[0]=new JLabel("Filtrage ");
-		labels[1]=new JLabel("     Annee");
-		labels[2]=new JLabel("     Marque");
-		labels[3]=new JLabel("     Prix");
+		labels[1]=new JLabel("Annee");
+		labels[2]=new JLabel("Marque");
+		labels[3]=new JLabel("Prix");
 		bouton=new JButton("Chercher");
 		
 		bouton.setSize(20, 2);
 		bouton.setBackground(Color.DARK_GRAY);
 		bouton.setForeground(Color.white);
 		bouton.addActionListener(this);
-		panelSearsh.add(labels[1]);
-		panelSearsh.add(labels[2]);
-		panelSearsh.add(inputs[0]);
-		panelSearsh.add(inputs[1]);
-		panelSearsh.add(labels[3]);
-		panelSearsh.add(labels[0]);
-		panelSearsh.add(inputs[2]);
 		
-		panelSearsh.add(bouton);
+		panelSearsh.add(labels[1]);panelSearsh.add(labels[2]);
+		panelSearsh.add(inputs[0]);panelSearsh.add(inputs[1]);
+		panelSearsh.add(labels[3]);panelSearsh.add(labels[0]);
+		panelSearsh.add(inputs[2]);panelSearsh.add(bouton);
+		
 		this.add(panelSearsh,BorderLayout.NORTH);
 		this.setVisible(true);
-		this.setSize(500,1000);
-		 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(700,600);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 
 		 showUps=new AffichageVoiture(agence.voitures);
-		 this.add(showUps,BorderLayout.SOUTH);
-		// this.setSize(preferredSize());
+		 this.add(showUps,BorderLayout.CENTER);
 	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		InterCritere crit=new InterCritere();
+		// anne marque prix
+		String Annee=inputs[0].getText();
+		if (!Annee.equals("")) {	crit.addCritere(new CritereAnnee(Voiture.convertInt(Annee)));}
+		
+		String marque=inputs[1].getText();
+		if (!marque.equals("")) {	crit.addCritere(new CritereMarque(marque));}
+		
+		String prix=inputs[2].getText();
+		if (!prix.equals("")) {	crit.addCritere(new CriterePrix(Voiture.convertInt(prix)));}
+		
+		DefaultTableModel modele=(DefaultTableModel) showUps.getTable().getModel();
+
+		int rows=modele.getRowCount();
+		for(int i=0;i<rows;i++)modele.removeRow(0);
+			
+		
+		Iterator<Voiture> iter=agence.selectionne(crit);
+		try{
+			if(!iter.hasNext()) throw new Exception();
+			while(iter.hasNext())
+			{
+				Voiture v=iter.next();
+				modele.addRow(new Object[]
+						{v.getMatricule(),
+						v.getMarque(),v.getModele(),
+						v.getAnneeProd(),v.getPrix()}) ;
+			}
+		}catch(Exception exp) {
+		
+			JOptionPane.showMessageDialog(this, "Il n'exist pas de voiture avec ses criteres!", "Voiture introuvable", JOptionPane.ERROR_MESSAGE);
+		}
+			
+		viderInputs();
+		
+	}
+	
+	private void viderInputs() {
+		for(int i=0;i<3;i++) inputs[i].setText("");
+		inputs[0].requestFocusInWindow();//cursor
+	}
+	
+	
 	public static void main(String[] args) {
 		Agence agence =new Agence();
 		agence.ajouterVoiture(new Voiture("BMW", "A3", 2018, 67,"123D23"));
@@ -78,53 +120,9 @@ public class Filtrage extends JFrame implements ActionListener{
 		agence.ajouterVoiture(new Voiture("Renaut", "2008", 2021, 170,"765Q09"));
 		new Filtrage(agence);
 	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		InterCritere crit=new InterCritere();
-			
-		// anne marque prix
-		String Annee=inputs[0].getText();
-		if (!Annee.equals("")) {	
-			crit.addCritere(new CritereAnnee(Voiture.convertInt(Annee)));
-		}
-		
-		String marque=inputs[1].getText();
-		if (!marque.equals("")) {	
-			crit.addCritere(new CritereMarque(marque));
-		}
-		
-		
-		String prix=inputs[2].getText();
-		if (!prix.equals("")) {	
-			crit.addCritere(new CriterePrix(Voiture.convertInt(prix)));
-		}
-		
-		DefaultTableModel modele=(DefaultTableModel) showUps.getTable().getModel();
-
-		int rows=modele.getRowCount();
-		for(int i=0;i<rows;i++) {
-			modele.removeRow(0);
-			
-		}
-		Iterator<Voiture> iter=agence.selectionne(crit);
-		
-		while(iter.hasNext())
-		{
-			Voiture v=iter.next();
-			modele.addRow(new Object[] {v.getMatricule(),v.getMarque(),v.getModele(),v.getAnneeProd(),v.getPrix()}) ;
-		}
-		//iter=null;
-		
-		viderInputs();
-
-			
-		
-		
-	}
 	
-	private void viderInputs() {
-		for(int i=0;i<3;i++) inputs[i].setText("");
-		inputs[0].requestFocusInWindow();//cursor
-	}
+	
+	
+	
 
 }

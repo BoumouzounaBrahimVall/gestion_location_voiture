@@ -1,5 +1,5 @@
 package tp6;
-import java.util.Iterator;
+import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.*;
@@ -15,10 +15,11 @@ public class AffichageVoiture  extends JPanel{
 	public AffichageVoiture(List<Voiture> voitures) {
 		
 		table=new JTable(new DefaultTableModel(titres,0));
+		this.setLayout(new GridLayout(1,1,10,10));
 		this.add(new JScrollPane(table));
 		
-		this.setSize(500,500);
-		this.setVisible(true);
+		//this.setSize(500,500);
+		//this.setVisible(true);
 		for(Voiture v : voitures) {
 			((DefaultTableModel )table.getModel() ).addRow(new Object[] {v.getMatricule(),v.getMarque(),v.getModele(),v.getAnneeProd(),v.getPrix()}) ;
 

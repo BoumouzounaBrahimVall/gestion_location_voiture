@@ -17,7 +17,7 @@ import tp3.CriterePrix;
 import tp3.InterCritere;
 import tp3.Voiture;
 
-public class Filtrage extends JFrame implements ActionListener{
+public class Filtrage extends JPanel implements ActionListener{
 	private static final long serialVersionUID = -6125233068539041345L;
 	private JPanel panelSearsh;
 	private JLabel[] labels;
@@ -31,11 +31,12 @@ public class Filtrage extends JFrame implements ActionListener{
 		panelSearsh.setBackground(Color.RED);
 	
 		inputs=new JTextField[3];
-		for(int i=0;i<3;i++) inputs[i]=new JTextField(20);
+		for(int i=0;i<3;i++) 
+			inputs[i]=new JTextField(20);	
+		
+
 		
 		labels=new JLabel[4];
-		
-		
 		labels[0]=new JLabel("Filtrage ");
 		labels[1]=new JLabel("Annee");
 		labels[2]=new JLabel("Marque");
@@ -51,12 +52,9 @@ public class Filtrage extends JFrame implements ActionListener{
 		panelSearsh.add(inputs[0]);panelSearsh.add(inputs[1]);
 		panelSearsh.add(labels[3]);panelSearsh.add(labels[0]);
 		panelSearsh.add(inputs[2]);panelSearsh.add(bouton);
-		
+		this.setLayout(new BorderLayout());
 		this.add(panelSearsh,BorderLayout.NORTH);
 		this.setVisible(true);
-		this.setSize(700,600);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 
 		 showUps=new AffichageVoiture(agence.voitures);
 		 this.add(showUps,BorderLayout.CENTER);
 	}
@@ -105,7 +103,7 @@ public class Filtrage extends JFrame implements ActionListener{
 		inputs[0].requestFocusInWindow();//cursor
 	}
 	
-	
+	/*
 	public static void main(String[] args) {
 		Agence agence =new Agence();
 		agence.ajouterVoiture(new Voiture("BMW", "A3", 2018, 67,"123D23"));
@@ -123,6 +121,6 @@ public class Filtrage extends JFrame implements ActionListener{
 	
 	
 	
-	
+	*/
 
 }

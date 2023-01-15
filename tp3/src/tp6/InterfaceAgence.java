@@ -4,7 +4,11 @@ package tp6;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.Scrollbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -16,29 +20,27 @@ import javax.swing.table.DefaultTableModel;
 import tp3.Agence;
 import tp3.Voiture;
 
-public class InterfaceAgence extends JPanel implements ActionListener,MouseListener{
+public class InterfaceAgence extends JFrame implements ActionListener,MouseListener{
 
 	private static final long serialVersionUID = 1L;
 	public Agence agence;
 	private JPanel panelAjout;
 	private JPanel panelBtns;
-	private JPanel panelSearsh;
 	private JPanel panelTab;
 	private JTextField[] inputs; 
 	private JButton[] boutons;
 	private JLabel[] labels;
 	private JScrollPane scrollpane;
 	private JTable table;
-	String[] colums= {"Matricule","Marque","Modele","Annee","Prix"};
+	private Filtrage filtre;
+	private JScrollPane scroller,scroller2;
+	String[] colums= {"CIN","NOM","PRENOM","Matricule","Marque","Modele","Annee","Prix"};
 	public InterfaceAgence()
 	{
 		agence=new Agence();
-		JFrame f=new JFrame("Gestion location");
-		f.setResizable(false);
-		f.setLocation(150, 100);
-		 f.setSize(300,300);
-		 f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 Container content = f.getContentPane();
+	
+		 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		 Container content = this.getContentPane();
 		 content.setLayout(new BorderLayout());
 		panelAjout=new JPanel(new GridLayout(5,2,10,10));
 		panelAjout.setBackground(Color.LIGHT_GRAY);
@@ -78,53 +80,58 @@ public class InterfaceAgence extends JPanel implements ActionListener,MouseListe
 		panelBtns.add(boutons[2],BorderLayout.SOUTH);
 		boutons[2].setBackground(Color.DARK_GRAY);
 		boutons[2].setForeground(Color.white);
-		panelSearsh=new JPanel(new GridLayout(5,2,5,5));
-		panelSearsh.setBackground(Color.LIGHT_GRAY);
-
-		labels[5]=new JLabel("   ");
-		labels[6]=new JLabel("     			             Filtrage ");
-		labels[7]=new JLabel("     Annee");
-		labels[8]=new JLabel("     Marque");
-		labels[9]=new JLabel("     Prix");
-		inputs[5]=new JTextField(20);
-		inputs[6]=new JTextField(20);
-		inputs[7]=new JTextField(20);
-		boutons[3]=new JButton("Chercher");
-		boutons[3].setSize(20, 2);
-		boutons[3].setBackground(Color.DARK_GRAY);
-		boutons[3].setForeground(Color.white);
-		panelSearsh.add(labels[5]);
-		panelSearsh.add(labels[6]);
-		panelSearsh.add(labels[7]);
-		panelSearsh.add(inputs[5]);
-		panelSearsh.add(labels[8]);
-		panelSearsh.add(inputs[6]);
-		panelSearsh.add(labels[9]);
-		panelSearsh.add(inputs[7]);
-		panelSearsh.add(new JLabel(""));
-		panelSearsh.add(boutons[3]);
+		
+		
 		panelTab=new JPanel();
 		scrollpane=new JScrollPane();
 		panelTab.add(scrollpane);
 		DefaultTableModel model = new DefaultTableModel(colums, 0);
 		table=new JTable(model);
 		table.addMouseListener(this);
-		table.setSize(800,500); 
 		scrollpane.setViewportView(table);
-		//panelTab.add(table);
-		this.add(panelAjout,BorderLayout.EAST);
-		this.add(panelBtns,BorderLayout.CENTER);
-		this.add(panelSearsh,BorderLayout.WEST);
-		this.add(panelTab,BorderLayout.SOUTH);
-		content.add(this, BorderLayout.CENTER);
-		//f.pack();
-		f.setSize(900, 400);
-		f.setVisible(true);
+
+		
+		filtre=new Filtrage(agence);
+
+        JSplitPane panSplit=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        panSplit.setDividerLocation(500);
+        panSplit.setDividerSize(10);
+		JPanel panelCrud=new JPanel();
+		JPanel panelFiltEtCrud=new JPanel();
+		panelFiltEtCrud.setLayout(new BorderLayout());
+
+		panelCrud.add(panelAjout);
+		panelCrud.add(panelBtns);
+		
+		
+		panelFiltEtCrud.add(panelCrud,BorderLayout.NORTH);
+		panelFiltEtCrud.add(filtre,BorderLayout.CENTER);
+		
+		scroller=new JScrollPane(panelFiltEtCrud,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+		panSplit.add(scroller);
+
+		
+		scroller2=new JScrollPane(panelTab,
+				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		panSplit.add(scroller2);
+		content.add(panSplit);
+		
+		
+		
+		this.setSize(1000,500);
+		this.setResizable(false);
+		this.setVisible(true);
+		this.setLocation(150, 100);
+
 		
 	}
 	
 	public static void main(String[] args) {
-		new InterfaceVoiture();
+		new InterfaceAgence();
 	}
 
 	@Override

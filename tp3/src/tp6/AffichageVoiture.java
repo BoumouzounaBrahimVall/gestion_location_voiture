@@ -15,7 +15,7 @@ public class AffichageVoiture  extends JPanel{
 	public AffichageVoiture(List<Voiture> voitures) {
 		
 		table=new JTable(new DefaultTableModel(titres,0));
-		this.setLayout(new GridLayout(1,1,10,10));
+	//	this.setLayout(new GridLayout(1,1,10,10));
 		this.add(new JScrollPane(table));
 		
 		//this.setSize(500,500);

@@ -1,13 +1,15 @@
 package tp6;
-
+//43, 100, 122 strong   113, 195, 227
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.Label;
 import java.awt.Scrollbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -43,15 +45,15 @@ public class InterfaceAgence extends JFrame implements ActionListener,MouseListe
 		 Container content = this.getContentPane();
 		 content.setLayout(new BorderLayout());
 		panelAjout=new JPanel(new GridLayout(5,2,10,10));
-		panelAjout.setBackground(Color.LIGHT_GRAY);
+		panelAjout.setBackground(new Color(113, 195, 227));
 		inputs=new JTextField[8];
 		for(int i=0;i<5;i++)
 			inputs[i]=new JTextField(20);
 		labels=new JLabel[10];
 		labels[0]=new JLabel("Matricule");
-		labels[1]=new JLabel("Marque");
-		labels[2]=new JLabel("Modele");
-		labels[3]=new JLabel("Annee");
+		labels[1]=new JLabel("CIN");
+		labels[2]=new JLabel("NOM");
+		labels[3]=new JLabel("PRENOM");
 		labels[4]=new JLabel("Prix");
 		for(int i=0;i<5;)
 		{
@@ -72,15 +74,15 @@ public class InterfaceAgence extends JFrame implements ActionListener,MouseListe
 		boutons[2]=new JButton("Modifier");
 		boutons[2].addActionListener(this);
 		panelBtns.add(boutons[0],BorderLayout.NORTH);
-		boutons[0].setBackground(Color.DARK_GRAY);
+		boutons[0].setBackground(new Color(43, 100, 122));
 		boutons[0].setForeground(Color.white);
 		panelBtns.add(boutons[1],BorderLayout.CENTER);
-		boutons[1].setBackground(Color.DARK_GRAY);
+		boutons[1].setBackground(new Color(43, 100, 122));
 		boutons[1].setForeground(Color.white);
 		panelBtns.add(boutons[2],BorderLayout.SOUTH);
-		boutons[2].setBackground(Color.DARK_GRAY);
+		boutons[2].setBackground(new Color(43, 100, 122));
 		boutons[2].setForeground(Color.white);
-		
+		panelBtns.setBackground(new Color(113, 195, 227));
 		
 		panelTab=new JPanel();
 		scrollpane=new JScrollPane();
@@ -92,7 +94,7 @@ public class InterfaceAgence extends JFrame implements ActionListener,MouseListe
 
 		
 		filtre=new Filtrage(agence);
-
+		//------ main Front works
         JSplitPane panSplit=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         panSplit.setDividerLocation(500);
         panSplit.setDividerSize(10);
@@ -102,16 +104,24 @@ public class InterfaceAgence extends JFrame implements ActionListener,MouseListe
 
 		panelCrud.add(panelAjout);
 		panelCrud.add(panelBtns);
+		panelCrud.setBackground(new Color(113, 195, 227));
+
+		 JSplitPane panSplit2=new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+	        panSplit.setDividerLocation(500);
+	        panSplit.setDividerSize(10);
 		
-		
-		panelFiltEtCrud.add(panelCrud,BorderLayout.NORTH);
+	   Label titreFiltre=new Label("\tFiltrer pour selection une voiture",1);
+	   titreFiltre.setFont(new Font("", Font.BOLD, 17 ));
+	   titreFiltre.setForeground(Color.WHITE);
+		panelFiltEtCrud.add(titreFiltre,BorderLayout.NORTH);
 		panelFiltEtCrud.add(filtre,BorderLayout.CENTER);
-		
+		panelFiltEtCrud.setBackground(new Color(113, 195, 227));
 		scroller=new JScrollPane(panelFiltEtCrud,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
-		panSplit.add(scroller);
+		panSplit2.add(panelCrud);
+		panSplit2.add(scroller);
+		panSplit.add(panSplit2);
 
 		
 		scroller2=new JScrollPane(panelTab,

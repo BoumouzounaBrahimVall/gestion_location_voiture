@@ -28,7 +28,7 @@ public class Filtrage extends JPanel implements ActionListener{
 	public Filtrage(Agence agence) {
 		this.agence=agence;
 		panelSearsh=new JPanel(new GridLayout(4,2,0,0));
-		panelSearsh.setBackground(Color.RED);
+		panelSearsh.setBackground(new Color(113, 195, 227));
 	
 		inputs=new JTextField[3];
 		for(int i=0;i<3;i++) 

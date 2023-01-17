@@ -168,7 +168,7 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 		panSplit.add(scroller2);
 		this.add(panSplit);
 		
-		recupererAgence();
+		//recupererAgence();
 		RemplirTableau();
 		
 		
@@ -283,56 +283,7 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 		}
 	}
 	
-	public void recupererAgence() {
 
-		try {
-
-			// On cree un flux
-
-			DataInputStream dis = new DataInputStream(new FileInputStream("C:\\Users\\S USER\\git\\gestion_location_voiture\\tp3\\src\\voitures.txt"));
-
-			String chaine;
-
-			try {
-				String matricule;
-				String[] ch;
-				for (int i = 0; i < 9; i++) { // 9 voiture  pour hamza
-					matricule = dis.readLine();
-					ch = matricule.split(" ");
-					this.agence.ajouterVoiture(
-							new Voiture(ch[1], ch[2], Integer.parseInt(ch[3]), Integer.parseInt(ch[4]), ch[0]));
-				}
-			} finally {
-				dis.close();
-			}
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-		
-		try {
-
-			//remplire les  locations
-			DataInputStream dis = new DataInputStream(new FileInputStream("C:\\Users\\S USER\\git\\gestion_location_voiture\\tp3\\src\\locations.txt"));
-			String chaine;
-			try {
-				String matricule;
-				String[] ch;
-				for (int i = 0; i < 3; i++) { // 6 voiture  pour hamza
-					matricule = dis.readLine();
-					ch = matricule.split(" ");
-					this.agence.loueVoiture(new Client(ch[1], ch[2], ch[3], ch[4]),
-							this.agence.getVoiture(ch[0]));
-				}
-			} finally {
-				dis.close();
-			}
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-
-	}
 
 	public void RemplirTableau() {
 	

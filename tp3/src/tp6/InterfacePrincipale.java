@@ -42,7 +42,7 @@ public void recupererAgence() {
 
 		// On cree un flux
 
-		DataInputStream dis = new DataInputStream(new FileInputStream("C:\\Users\\S USER\\git\\gestion_location_voiture\\tp3\\src\\voitures.txt"));
+		DataInputStream dis = new DataInputStream(new FileInputStream("voitures.txt"));
 
 		String chaine;
 
@@ -66,7 +66,7 @@ public void recupererAgence() {
 	try {
 
 		//remplire les  locations
-		DataInputStream dis = new DataInputStream(new FileInputStream("C:\\Users\\S USER\\git\\gestion_location_voiture\\tp3\\src\\locations.txt"));
+		DataInputStream dis = new DataInputStream(new FileInputStream("locations.txt"));
 		String chaine;
 		try {
 			String matricule;

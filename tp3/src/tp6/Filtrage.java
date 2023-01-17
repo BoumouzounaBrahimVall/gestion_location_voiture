@@ -42,10 +42,10 @@ public class Filtrage extends JPanel implements ActionListener{
 		labels[2]=new JLabel("Marque");
 		labels[3]=new JLabel("Prix");
 		bouton=new JButton("Chercher");
+		bouton.setBackground(NosCouleur.COLOR2);
 		
 		bouton.setSize(20, 2);
-		bouton.setBackground(Color.DARK_GRAY);
-		bouton.setForeground(Color.white);
+		bouton.setForeground(Color.BLACK);
 		bouton.addActionListener(this);
 		
 		panelSearsh.add(labels[1]);panelSearsh.add(labels[2]);

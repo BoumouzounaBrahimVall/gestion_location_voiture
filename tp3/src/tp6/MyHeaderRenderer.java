@@ -13,7 +13,7 @@ public class MyHeaderRenderer extends DefaultTableCellRenderer {
         JLabel label = (JLabel) super.getTableCellRendererComponent(table, value,
                 isSelected, hasFocus, row, column);
         label.setForeground(Color.WHITE);
-        label.setBackground( new Color(13, 35, 255 ));
+        label.setBackground( NosCouleur.COLOR3);
         label.setHorizontalAlignment(JLabel.CENTER);
         return label;
     }

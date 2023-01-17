@@ -19,14 +19,15 @@ public class AffichageVoiture  extends JPanel{
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
                 c.setBackground(row % 2 == 0 ?  NosCouleur.COLOR1 : NosCouleur.COLOR2);
-                c.setForeground(Color.WHITE);        
+                c.setForeground(Color.BLACK);        
                 return c;
             }
         });
 		
         // Remove table borders
         table.setShowGrid(false);
-        
+        table.setFillsViewportHeight(true);
+        table.setBackground(NosCouleur.COLOR1);
         table.setIntercellSpacing(new Dimension(0, 0));
         table.setFont(new Font("",Font.ITALIC,13));
         table.setRowHeight(30);

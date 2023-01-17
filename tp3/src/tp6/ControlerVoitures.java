@@ -148,24 +148,26 @@ public void actionPerformed(ActionEvent e) {
 				 //critere Annee
 				 if(!(interfaceVoitures.getInputs()[5].getText().equals("")))
 				 {
-					 System.out.println("******prix****"+Integer.parseInt(interfaceVoitures.getInputs()[5].getText()));
-
+					 
 					 CritereAnnee c=new CritereAnnee(Integer.parseInt(interfaceVoitures.getInputs()[5].getText()));
 					 criteres.addCritere(c);
+					 interfaceVoitures.getInputs()[5].setText("");
 				 }
 				 //critere marque
 				 if(!(interfaceVoitures.getInputs()[6].getText().equals("")))
 				 {
-					 System.out.println("*******merque******"+interfaceVoitures.getInputs()[6].getText());
+					 
 					 CritereMarque c=new CritereMarque(interfaceVoitures.getInputs()[6].getText());
 					 criteres.addCritere(c);
+					 interfaceVoitures.getInputs()[6].setText("");
 				 }
 				 //critere Prix
 				 if(!(interfaceVoitures.getInputs()[7].getText().equals("")))
 				 {
-					 System.out.println("******prix****"+Integer.parseInt(interfaceVoitures.getInputs()[7].getText()));
+					 
 					 CriterePrix c=new CriterePrix(Integer.parseInt(interfaceVoitures.getInputs()[7].getText()));
 					 criteres.addCritere(c);
+					 interfaceVoitures.getInputs()[7].setText("");
 				 }
 				 Iterator<Voiture> iter=interfaceVoitures.agence.selectionne(criteres);
 				 interfaceVoitures.SupprimerTable();
@@ -174,11 +176,13 @@ public void actionPerformed(ActionEvent e) {
 				 {
 					v=iter.next();
 					 modele.addRow(new Object[] {v.getMatricule(),v.getMarque(),v.getModele(),v.getAnneeProd(),v.getPrix()}) ;
-					//viderInputs(5,8);
+					
 				 }
-				 
+				// viderInputs(5,8);
 			 }
-			 else JOptionPane.showMessageDialog(interfaceVoitures, "Remplir au moins une critere !", "no selection", JOptionPane.ERROR_MESSAGE);
+			 else {
+				 colorerVoitureLouees();
+			 }
 		}
 		
 	
@@ -200,6 +204,7 @@ public void mouseClicked(MouseEvent e) {
 	{
 		interfaceVoitures.SupprimerTable();
 		interfaceVoitures.remplirTableau();
+		colorerVoitureLouees();
 	}
 
 @SuppressWarnings("unused")
@@ -230,31 +235,33 @@ public void mouseExited(MouseEvent e) {}
 //}
 
 public void colorerVoitureLouees()
+
 {
 	Voiture v;
-	DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) interfaceVoitures.getTable().getDefaultRenderer(Object.class);
-
-	for(int i=0;i<interfaceVoitures.getTable().getRowCount();i++)
+	int[] tab = new int[interfaceVoitures.getTable().getRowCount()];
+//initialiser la table
+	for (int i = 0; i < tab.length; i++)
+		tab[i] = -1;
+	int j = 0;
+	DefaultTableCellRenderer renderer = (DefaultTableCellRenderer)
+	interfaceVoitures.getTable().getDefaultRenderer(Object.class);
+	for (int i = 0; i < interfaceVoitures.getTable().getRowCount(); i++)
 	{
-
-		v=new Voiture(
-				(String)interfaceVoitures.getTable().getValueAt(i,1),
-				(String)interfaceVoitures.getTable().getValueAt(i,2),
-				(int)interfaceVoitures.getTable().getValueAt(i,3),
-				(int)interfaceVoitures.getTable().getValueAt(i,4),
-				(String)interfaceVoitures.getTable().getValueAt(i,0)
-				);
-		if(interfaceVoitures.agence.estLoue(v))
+		v = new Voiture(
+				(String) interfaceVoitures.getTable().getValueAt(i, 1),
+			(String) interfaceVoitures.getTable().getValueAt(i, 2),
+				(int) interfaceVoitures.getTable().getValueAt(i, 3),
+				(int) interfaceVoitures.getTable().getValueAt(i, 4),
+				(String) interfaceVoitures.getTable().getValueAt(i, 0)
+		);
+		if (interfaceVoitures.agence.estLoue(v))
 		{
-			renderer.setForeground(Color.RED);
-			interfaceVoitures.getTable().setDefaultRenderer(Object.class, renderer);
-			interfaceVoitures.getTable().setRowSelectionInterval(i+1,interfaceVoitures.getTable().getRowCount()-1);
+			tab[j++] = i;
 			System.out.println("----------");
 		}
 	}
+	interfaceVoitures.ColorerTable(interfaceVoitures.getTable(), tab);
 }
-
-
 }
 
 

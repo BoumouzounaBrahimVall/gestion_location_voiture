@@ -129,9 +129,8 @@ public class Interface_Voiture extends JPanel {
 		        return c;
 		    }
 		});
-		JTableHeader tableHeader = table.getTableHeader();
-		tableHeader.setBackground(NosCouleur.COLOR2);
-		tableHeader.setForeground(Color.WHITE);
+		table.getTableHeader().setDefaultRenderer(new MyHeaderRenderer());
+
 		//remove borders/////////////////
 		table.setIntercellSpacing(new Dimension(0, 0));
         table.setFont(new Font("",Font.ITALIC,13));
@@ -260,5 +259,33 @@ public class Interface_Voiture extends JPanel {
 				
 		
 	}
+	public void ColorerTable(JTable table,int[] i)
+
+	{
+
+	table.setDefaultRenderer(Object.class, (TableCellRenderer) new DefaultTableCellRenderer() {
+
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+
+	final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+
+	c.setBackground(row % 2 == 0 ? NosCouleur.COLOR1: NosCouleur.COLOR2);
+
+	for(int j=0;j<i.length;j++)
+
+	if(row==i[j]) c.setBackground(NosCouleur.COLOR4);
+
+	return c;
+
+	}
+
+	});
+	 table.setFillsViewportHeight(true);
+     table.setBackground(NosCouleur.COLOR1);
+
+	}
+
+	
+	
 	
 }

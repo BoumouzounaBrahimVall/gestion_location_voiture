@@ -23,7 +23,7 @@ public InterfacePrincipale()
 	agence =new Agence();
 	recupererAgence();
 	CV=new ControlerVoitures(agence);
-	interfaceLocation=new InterfaceLocation(agence);
+	interfaceLocation=new InterfaceLocation(agence, CV);
 	CV.interfaceVoitures.agence.affichVoituresLouees();
 	tablePane.add("Gestion des Voitures",CV.interfaceVoitures);
 	tablePane.add("Gestion des Locations",interfaceLocation);

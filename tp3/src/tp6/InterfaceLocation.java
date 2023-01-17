@@ -46,11 +46,12 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 	private Filtrage filtre;
 	JRadioButton Homme,Femme;
 	ButtonGroup groupeHF;
+	ControlerVoitures CV;
 	String[] colums= {"CIN","NOM","PRENOM","Matricule","Marque","Modele","Annee","Prix"};
-	public InterfaceLocation(Agence agence)
+	public InterfaceLocation(Agence agence, ControlerVoitures cv)
 	{
 		this.agence=agence;
-	
+		CV=cv;
 		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Container content = this.getContentPane();
 		 this.setLayout(new BorderLayout());
@@ -71,16 +72,16 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 		
 		groupeHF = new ButtonGroup();
 		Homme = new JRadioButton("Homme");
-		Homme.setMnemonic (KeyEvent.VK_4);Homme.setBackground(NosCouleur.COLOR1);Homme.setForeground(Color.WHITE);
+		Homme.setMnemonic (KeyEvent.VK_4);Homme.setBackground(NosCouleur.COLOR1);Homme.setForeground(Color.BLACK);
 		panelAjout.add (Homme); groupeHF.add (Homme);
 		Homme.setSelected(true);
-		Femme = new JRadioButton("Femme");Femme.setBackground(NosCouleur.COLOR1);Femme.setForeground(Color.WHITE);
+		Femme = new JRadioButton("Femme");Femme.setBackground(NosCouleur.COLOR1);Femme.setForeground(Color.BLACK);
 		Femme.setMnemonic (KeyEvent.VK_6);
 		panelAjout.add (Femme); groupeHF.add (Femme);
 		
 		
 		for(int i=0;i<4;)
-		{	labels[i].setForeground(Color.WHITE);
+		{	labels[i].setForeground(Color.BLACK);
 			panelAjout.add(labels[i]);
 			panelAjout.add(inputs[i]);
 			i++;
@@ -99,35 +100,37 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 		boutons[2].addActionListener(this);
 		panelBtns.add(boutons[0],BorderLayout.NORTH);
 		boutons[0].setBackground(NosCouleur.COLOR2);
-		boutons[0].setForeground(Color.white);
+		boutons[0].setForeground(Color.BLACK);
 		panelBtns.add(boutons[1],BorderLayout.CENTER);
 		boutons[1].setBackground(NosCouleur.COLOR2);
-		boutons[1].setForeground(Color.white);
+		boutons[1].setForeground(Color.BLACK);
 		panelBtns.add(boutons[2],BorderLayout.SOUTH);
 		boutons[2].setBackground(NosCouleur.COLOR2);
-		boutons[2].setForeground(Color.white);
+		boutons[2].setForeground(Color.BLACK);
 		panelBtns.setBackground(NosCouleur.COLOR1);
 		
 		panelTab=new JPanel();
 
 		 Label titreLocation=new Label("\tListe des location ",1);
 		 titreLocation.setFont(new Font("", Font.BOLD, 18 ));
-		 titreLocation.setForeground(Color.WHITE);
+		 titreLocation.setForeground(Color.BLACK);
 		 panelTab.add(titreLocation,BorderLayout.NORTH);
 		panelTab.setBackground(NosCouleur.COLOR1);
 		scrollpane=new JScrollPane();
 		panelTab.add(scrollpane);
 		DefaultTableModel model = new DefaultTableModel(colums, 0);
 		table=new JTable(model);
+        table.setFillsViewportHeight(true);
+        table.setBackground(NosCouleur.COLOR1);
 		//table.setPreferredSize(new Dimension(400,600));
-		scrollpane.setPreferredSize(new Dimension(490,600));
+		scrollpane.setPreferredSize(new Dimension(510,600));
 
 		table.getTableHeader().setDefaultRenderer(new MyHeaderRenderer());
 		table.setDefaultRenderer(Object.class, (TableCellRenderer) new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                c.setBackground(row % 2 == 0 ?  new Color(43, 100, 122) : new Color(113, 195, 227));
-                c.setForeground(Color.WHITE);        
+                c.setBackground(row % 2 == 0 ? NosCouleur.COLOR1 : NosCouleur.COLOR2);
+                c.setForeground(Color.BLACK);        
                 return c;
             }
         });
@@ -162,7 +165,7 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 		
 	   Label titreFiltre=new Label("\tFiltrer pour selection une voiture",1);
 	   titreFiltre.setFont(new Font("", Font.BOLD, 17 ));
-	   titreFiltre.setForeground(Color.WHITE);
+	   titreFiltre.setForeground(Color.BLACK);
 		panelFiltEtCrud.add(titreFiltre,BorderLayout.NORTH);
 		panelFiltEtCrud.add(filtre,BorderLayout.CENTER);
 		panelFiltEtCrud.setBackground(NosCouleur.COLOR1);
@@ -221,7 +224,7 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 							v.getMatricule(),v.getMarque(),v.getModele(),v.getAnneeProd(),v.getPrix()
 					}) ;
 					JOptionPane.showMessageDialog(this, "Location ajoute avec succe", "ajout ", JOptionPane.OK_OPTION);
-					
+					CV.colorerVoitureLouees();
 				}
 				else 
 				{
@@ -241,7 +244,8 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 				agence.rendVoiture(agence.getClient(o));
 				modele.removeRow(ligne);
 				viderInputs();
-				
+				CV.colorerVoitureLouees();
+
 			}
 			else JOptionPane.showMessageDialog(this, "Selectionner une location pour la rendre!", "no selection", JOptionPane.ERROR_MESSAGE);
 			break;

@@ -18,7 +18,7 @@ public class AffichageVoiture  extends JPanel{
 		table.setDefaultRenderer(Object.class, (TableCellRenderer) new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                c.setBackground(row % 2 == 0 ?  new Color(43, 100, 122) : new Color(113, 195, 227));
+                c.setBackground(row % 2 == 0 ?  NosCouleur.COLOR1 : NosCouleur.COLOR2);
                 c.setForeground(Color.WHITE);        
                 return c;
             }
@@ -30,7 +30,8 @@ public class AffichageVoiture  extends JPanel{
         table.setFont(new Font("",Font.ITALIC,13));
         table.setRowHeight(30);
 		this.add(new JScrollPane(table));
-		
+		table.setBackground(NosCouleur.COLOR1);
+		this.setBackground(NosCouleur.COLOR1);
 		for(Voiture v : voitures) {
 			((DefaultTableModel )table.getModel() ).addRow(new Object[] {v.getMatricule(),v.getMarque(),v.getModele(),v.getAnneeProd(),v.getPrix()}) ;
 

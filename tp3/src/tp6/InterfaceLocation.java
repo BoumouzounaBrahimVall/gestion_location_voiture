@@ -55,13 +55,15 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Container content = this.getContentPane();
 		 this.setLayout(new BorderLayout());
-		panelAjout=new JPanel(new GridLayout(5,2,10,10));
-		panelAjout.setBackground(new Color(113, 195, 227));
+		
+		panelAjout=new JPanel(new GridLayout(5,2,0,5));
+		panelAjout.setBackground(NosCouleur.COLOR1);
 		inputs=new JTextField[8];
 		for(int i=0;i<5;i++)
 			inputs[i]=new JTextField(20);
-		labels=new JLabel[10];
+		labels=new JLabel[5];
 		labels[4]=new JLabel("CIVILITE");
+		
 		labels[0]=new JLabel("CIN");
 		labels[1]=new JLabel("NOM");
 		labels[2]=new JLabel("PRENOM");
@@ -70,23 +72,23 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 		
 		groupeHF = new ButtonGroup();
 		Homme = new JRadioButton("Homme");
-		Homme.setMnemonic (KeyEvent.VK_4);Homme.setBackground(new Color(113, 195, 227));
+		Homme.setMnemonic (KeyEvent.VK_4);Homme.setBackground(NosCouleur.COLOR1);Homme.setForeground(Color.WHITE);
 		panelAjout.add (Homme); groupeHF.add (Homme);
 		Homme.setSelected(true);
-		Femme = new JRadioButton("Femme");Femme.setBackground(new Color(113, 195, 227));
+		Femme = new JRadioButton("Femme");Femme.setBackground(NosCouleur.COLOR1);Femme.setForeground(Color.WHITE);
 		Femme.setMnemonic (KeyEvent.VK_6);
 		panelAjout.add (Femme); groupeHF.add (Femme);
 		
 		
 		for(int i=0;i<4;)
-		{
+		{	labels[i].setForeground(Color.WHITE);
 			panelAjout.add(labels[i]);
 			panelAjout.add(inputs[i]);
 			i++;
 		}
 			
 		
-		panelBtns=new JPanel(new  BorderLayout(10,30));
+		panelBtns=new JPanel(new  BorderLayout(5,20));
 		
 		
 		boutons=new JButton[4];
@@ -97,21 +99,25 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 		boutons[2]=new JButton("Modifier");
 		boutons[2].addActionListener(this);
 		panelBtns.add(boutons[0],BorderLayout.NORTH);
-		boutons[0].setBackground(new Color(43, 100, 122));
+		boutons[0].setBackground(NosCouleur.COLOR2);
 		boutons[0].setForeground(Color.white);
 		panelBtns.add(boutons[1],BorderLayout.CENTER);
-		boutons[1].setBackground(new Color(43, 100, 122));
+		boutons[1].setBackground(NosCouleur.COLOR2);
 		boutons[1].setForeground(Color.white);
 		panelBtns.add(boutons[2],BorderLayout.SOUTH);
-		boutons[2].setBackground(new Color(43, 100, 122));
+		boutons[2].setBackground(NosCouleur.COLOR2);
 		boutons[2].setForeground(Color.white);
-		panelBtns.setBackground(new Color(113, 195, 227));
+		panelBtns.setBackground(NosCouleur.COLOR1);
 		
 		panelTab=new JPanel();
+		panelTab.setBackground(NosCouleur.COLOR1);
 		scrollpane=new JScrollPane();
 		panelTab.add(scrollpane);
 		DefaultTableModel model = new DefaultTableModel(colums, 0);
 		table=new JTable(model);
+		//table.setPreferredSize(new Dimension(400,600));
+		scrollpane.setPreferredSize(new Dimension(490,600));
+
 		table.getTableHeader().setDefaultRenderer(new MyHeaderRenderer());
 		table.setDefaultRenderer(Object.class, (TableCellRenderer) new DefaultTableCellRenderer() {
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -132,32 +138,35 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 		
 		
 		filtre=new Filtrage(agence);
+		filtre.setBackground(NosCouleur.COLOR1);
 		//------ main Front works
         JSplitPane panSplit=new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-        panSplit.setDividerLocation(500);
-        panSplit.setDividerSize(10);
+        panSplit.setDividerLocation(200);
+        panSplit.setDividerSize(0);
 		JPanel panelCrud=new JPanel();
 		JPanel panelFiltEtCrud=new JPanel();
 		panelFiltEtCrud.setLayout(new BorderLayout());
-
+		
 		panelCrud.add(panelAjout);
 		panelCrud.add(panelBtns);
-		panelCrud.setBackground(new Color(113, 195, 227));
+		panelCrud.setBackground(NosCouleur.COLOR1);
 
 		 JSplitPane panSplit2=new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-	        panSplit.setDividerLocation(500);
-	        panSplit.setDividerSize(10);
+	        panSplit.setDividerLocation(470);
+	        panSplit.setDividerSize(0);
+	        
 		
 	   Label titreFiltre=new Label("\tFiltrer pour selection une voiture",1);
 	   titreFiltre.setFont(new Font("", Font.BOLD, 17 ));
 	   titreFiltre.setForeground(Color.WHITE);
 		panelFiltEtCrud.add(titreFiltre,BorderLayout.NORTH);
 		panelFiltEtCrud.add(filtre,BorderLayout.CENTER);
-		panelFiltEtCrud.setBackground(new Color(113, 195, 227));
+		panelFiltEtCrud.setBackground(NosCouleur.COLOR1);
 		scroller=new JScrollPane(panelFiltEtCrud,
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		panSplit2.add(panelCrud);
+		panSplit2.setBackground(NosCouleur.COLOR1);
 		panSplit2.add(scroller);
 		panSplit.add(panSplit2);
 

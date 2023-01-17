@@ -24,7 +24,6 @@ public InterfacePrincipale()
 	recupererAgence();
 	CV=new ControlerVoitures(agence);
 	interfaceLocation=new InterfaceLocation(agence);
-	CV.interfaceVoitures.agence.loueVoiture(new Client("a","a","a","a"), new Voiture("AUDI","RS3",2020,20000,"a1"));
 	CV.interfaceVoitures.agence.affichVoituresLouees();
 	tablePane.add("Gestion des Voitures",CV.interfaceVoitures);
 	tablePane.add("Gestion des Locations",interfaceLocation);
@@ -45,11 +44,11 @@ public void recupererAgence() {
 		DataInputStream dis = new DataInputStream(new FileInputStream("voitures.txt"));
 
 		String chaine;
-
+		//TODO:: should be dynamic
 		try {
 			String matricule;
 			String[] ch;
-			for (int i = 0; i < 9; i++) { // 9 voiture  pour hamza
+			for (int i = 0; i < 15; i++) { // 9 voiture  pour hamza
 				matricule = dis.readLine();
 				ch = matricule.split(" ");
 				this.agence.ajouterVoiture(

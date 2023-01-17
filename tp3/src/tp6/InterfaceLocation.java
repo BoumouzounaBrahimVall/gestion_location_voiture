@@ -44,7 +44,6 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 	private JScrollPane scrollpane;
 	private JTable table;
 	private Filtrage filtre;
-	private JScrollPane scroller,scroller2;
 	JRadioButton Homme,Femme;
 	ButtonGroup groupeHF;
 	String[] colums= {"CIN","NOM","PRENOM","Matricule","Marque","Modele","Annee","Prix"};
@@ -110,6 +109,11 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 		panelBtns.setBackground(NosCouleur.COLOR1);
 		
 		panelTab=new JPanel();
+
+		 Label titreLocation=new Label("\tListe des location ",1);
+		 titreLocation.setFont(new Font("", Font.BOLD, 18 ));
+		 titreLocation.setForeground(Color.WHITE);
+		 panelTab.add(titreLocation,BorderLayout.NORTH);
 		panelTab.setBackground(NosCouleur.COLOR1);
 		scrollpane=new JScrollPane();
 		panelTab.add(scrollpane);
@@ -162,19 +166,14 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 		panelFiltEtCrud.add(titreFiltre,BorderLayout.NORTH);
 		panelFiltEtCrud.add(filtre,BorderLayout.CENTER);
 		panelFiltEtCrud.setBackground(NosCouleur.COLOR1);
-		scroller=new JScrollPane(panelFiltEtCrud,
-				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		panSplit2.add(panelCrud);
 		panSplit2.setBackground(NosCouleur.COLOR1);
-		panSplit2.add(scroller);
+		panSplit2.add(panelFiltEtCrud);
 		panSplit.add(panSplit2);
 
 		
-		scroller2=new JScrollPane(panelTab,
-				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		panSplit.add(scroller2);
+		
+		panSplit.add(panelTab);
 		this.add(panSplit);
 		
 		//recupererAgence();

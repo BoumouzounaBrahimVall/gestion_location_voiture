@@ -26,10 +26,13 @@ public class AffichageVoiture  extends JPanel{
 		
         // Remove table borders
         table.setShowGrid(false);
+        
         table.setIntercellSpacing(new Dimension(0, 0));
         table.setFont(new Font("",Font.ITALIC,13));
         table.setRowHeight(30);
-		this.add(new JScrollPane(table));
+        JScrollPane pan=new JScrollPane(table);
+		this.add(pan);
+		pan.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
 		table.setBackground(NosCouleur.COLOR1);
 		this.setBackground(NosCouleur.COLOR1);
 		for(Voiture v : voitures) {

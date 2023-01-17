@@ -10,7 +10,7 @@ import java.util.TreeMap;
 
 public class Agence {
 	public List<Voiture> voitures;
-	private Map<Client, Voiture> locations;
+	public Map<Client, Voiture> locations;
 
 	public Agence() {
 		voitures = new ArrayList<>();
@@ -161,7 +161,7 @@ public class Agence {
 	}
 
 
-	public void loueVoiture(Client client, Voiture v) {
+	public int loueVoiture(Client client, Voiture v) {
 
 		try {
 			if (voitures.contains(v)) {
@@ -175,19 +175,25 @@ public class Agence {
 								throw new Exception();
 						} catch (Exception e) {
 							System.out.println("client loueur ");
+							return 1;
 						}
 
 					} else
 						throw new Exception();
 				} catch (Exception e) {
 					System.out.println("la voiture est deja loue ");
+					return 2;
+
 				}
 
 			} else
 				throw new Exception();
 		} catch (Exception ignored) {
 			System.out.println("la voiture n'est pas dans l'agence ");
+			return 3;
 		}
+		return 0;
+
 	}
 
 	public boolean estLoueur(Client client) {

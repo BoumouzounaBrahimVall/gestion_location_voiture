@@ -3,7 +3,9 @@ package tp6;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -13,13 +15,20 @@ import java.awt.Label;
 import java.awt.Scrollbar;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import tp3.Agence;
+import tp3.Client;
 import tp3.Voiture;
 
 public class InterfaceAgence extends JFrame implements ActionListener,MouseListener{
@@ -36,10 +45,12 @@ public class InterfaceAgence extends JFrame implements ActionListener,MouseListe
 	private JTable table;
 	private Filtrage filtre;
 	private JScrollPane scroller,scroller2;
+	JRadioButton Homme,Femme;
+	ButtonGroup groupeHF;
 	String[] colums= {"CIN","NOM","PRENOM","Matricule","Marque","Modele","Annee","Prix"};
-	public InterfaceAgence()
+	public InterfaceAgence(Agence agence)
 	{
-		agence=new Agence();
+		this.agence=agence;
 	
 		 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		 Container content = this.getContentPane();
@@ -50,12 +61,24 @@ public class InterfaceAgence extends JFrame implements ActionListener,MouseListe
 		for(int i=0;i<5;i++)
 			inputs[i]=new JTextField(20);
 		labels=new JLabel[10];
-		labels[0]=new JLabel("Matricule");
-		labels[1]=new JLabel("CIN");
-		labels[2]=new JLabel("NOM");
-		labels[3]=new JLabel("PRENOM");
-		labels[4]=new JLabel("Prix");
-		for(int i=0;i<5;)
+		labels[4]=new JLabel("CIVILITE");
+		labels[0]=new JLabel("CIN");
+		labels[1]=new JLabel("NOM");
+		labels[2]=new JLabel("PRENOM");
+		labels[3]=new JLabel("MATRICULE");
+		//TODO :: treat the civility 
+		
+		groupeHF = new ButtonGroup();
+		Homme = new JRadioButton("Homme");
+		Homme.setMnemonic (KeyEvent.VK_4);Homme.setBackground(new Color(113, 195, 227));
+		panelAjout.add (Homme); groupeHF.add (Homme);
+		Homme.setSelected(true);
+		Femme = new JRadioButton("Femme");Femme.setBackground(new Color(113, 195, 227));
+		Femme.setMnemonic (KeyEvent.VK_6);
+		panelAjout.add (Femme); groupeHF.add (Femme);
+		
+		
+		for(int i=0;i<4;)
 		{
 			panelAjout.add(labels[i]);
 			panelAjout.add(inputs[i]);
@@ -67,9 +90,9 @@ public class InterfaceAgence extends JFrame implements ActionListener,MouseListe
 		
 		
 		boutons=new JButton[4];
-		boutons[0]=new JButton("Ajouter");
+		boutons[0]=new JButton("Louer");
 		boutons[0].addActionListener(this);
-		boutons[1]=new JButton("Supprimer");
+		boutons[1]=new JButton("Rendre");
 		boutons[1].addActionListener(this);
 		boutons[2]=new JButton("Modifier");
 		boutons[2].addActionListener(this);
@@ -89,9 +112,24 @@ public class InterfaceAgence extends JFrame implements ActionListener,MouseListe
 		panelTab.add(scrollpane);
 		DefaultTableModel model = new DefaultTableModel(colums, 0);
 		table=new JTable(model);
+		table.getTableHeader().setDefaultRenderer(new MyHeaderRenderer());
+		table.setDefaultRenderer(Object.class, (TableCellRenderer) new DefaultTableCellRenderer() {
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                c.setBackground(row % 2 == 0 ?  new Color(43, 100, 122) : new Color(113, 195, 227));
+                c.setForeground(Color.WHITE);        
+                return c;
+            }
+        });
+		
+        // Remove table borders
+        table.setShowGrid(false);
+        table.setIntercellSpacing(new Dimension(0, 0));
+        table.setFont(new Font("",Font.ITALIC,13));
+        table.setRowHeight(30);
 		table.addMouseListener(this);
 		scrollpane.setViewportView(table);
-
+		
 		
 		filtre=new Filtrage(agence);
 		//------ main Front works
@@ -130,6 +168,8 @@ public class InterfaceAgence extends JFrame implements ActionListener,MouseListe
 		panSplit.add(scroller2);
 		content.add(panSplit);
 		
+		recupererAgence();
+		RemplirTableau();
 		
 		
 		this.setSize(1000,500);
@@ -140,18 +180,15 @@ public class InterfaceAgence extends JFrame implements ActionListener,MouseListe
 		
 	}
 	
-	public static void main(String[] args) {
-		new InterfaceAgence();
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		DefaultTableModel modele=(DefaultTableModel) table.getModel();
 		String buttonLable=((JButton)e.getSource( )).getText();
 		switch (buttonLable) {
-		case "Ajouter": {
+		case "Louer": {
 			boolean ajout=true;
-			for(int i=0;i<5;i++)
+			for(int i=0;i<4;i++)
 			{
 				if(inputs[i].getText().equals(""))
 				{
@@ -164,36 +201,42 @@ public class InterfaceAgence extends JFrame implements ActionListener,MouseListe
 			
 			if(ajout)
 			{
-				Voiture v=new Voiture(inputs[1].getText(),inputs[2].getText(),Integer.parseInt(inputs[3].getText()),
-						Integer.parseInt(inputs[4].getText()),inputs[0].getText()	);
-				if(agence.containsV(v.getMatricule()))
+				String civilite = Homme.isSelected()?"Mr.":"Mme.";
+				Voiture v=this.agence.getVoiture(inputs[3].getText());
+				int test=this.agence.loueVoiture(new Client(inputs[0].getText(),inputs[1].getText(), inputs[2].getText(),civilite),v ) ;
+				
+				String mssge =(test==1 )?"client loueur":((test==2)?"la voiture est deja loue ":"la voiture n'est pas dans l'agence ");
+				if(test==0)
 				{
-					JOptionPane.showMessageDialog(this, "Cette voiture existe!", "Voiture existe", JOptionPane.ERROR_MESSAGE);
+					modele.addRow(new Object[] {
+							inputs[0].getText(),inputs[1].getText(), inputs[2].getText(),
+							v.getMatricule(),v.getMarque(),v.getModele(),v.getAnneeProd(),v.getPrix()
+					}) ;
+					JOptionPane.showMessageDialog(this, "Location ajoute avec succe", "ajout ", JOptionPane.OK_OPTION);
+					
+				}
+				else 
+				{
+					JOptionPane.showMessageDialog(this,mssge, "Impossible d'effectuer l'allocation", JOptionPane.ERROR_MESSAGE);
 					 inputs[0].requestFocus();//cursor
-	
 				}
-				else {
-				agence.ajouterVoiture(v);
-				modele.addRow(new Object[] {v.getMatricule(),v.getMarque(),v.getModele(),v.getAnneeProd(),v.getPrix()}) ;
-				agence.afficherVoiture();
 				viderInputs();
-				 
-				}
+				break;
 			}
 		}
-		case "Supprimer": {
+		case "Rendre": {
 			int ligne=table.getSelectedRow();
 			if(ligne!=-1) 
 			{
 				String o= (String) table.getValueAt(ligne,0);
 				System.out.println(o);
-				agence.supprimerVoiture(o);
+				agence.rendVoiture(agence.getClient(o));
 				modele.removeRow(ligne);
 				viderInputs();
 				
 			}
-			else JOptionPane.showMessageDialog(this, "Selectionner une voiture!", "no selection", JOptionPane.ERROR_MESSAGE);
-
+			else JOptionPane.showMessageDialog(this, "Selectionner une location pour la rendre!", "no selection", JOptionPane.ERROR_MESSAGE);
+			break;
 		}
 		case "Modifier": {
 			int ligne=table.getSelectedRow();
@@ -201,19 +244,20 @@ public class InterfaceAgence extends JFrame implements ActionListener,MouseListe
 			{
 				String o= (String) table.getValueAt(ligne,0);
 				System.out.println(o);
-				for(int i=0;i<5;i++)
+				for(int i=0;i<3;i++)
 				modele.setValueAt(inputs[i].getText(), ligne, i);
-				agence.getVoiture(o).setMatricule(inputs[0].getText());
-				agence.getVoiture(inputs[0].getText()).setMarque(inputs[1].getText());
-				agence.getVoiture(inputs[0].getText()).setModele(inputs[2].getText());
-				agence.getVoiture(inputs[0].getText()).setAnneeProd(Integer.parseInt(inputs[3].getText()));
-				agence.getVoiture(inputs[0].getText()).setPrix(Integer.parseInt(inputs[4].getText()));
+				
+				agence.getClient(o).setCIN(inputs[0].getText());
+				agence.getClient(inputs[0].getText()).setNom(inputs[1].getText());
+				agence.getClient(inputs[0].getText()).setPrenom(inputs[2].getText());
+				String civilite = Homme.isSelected()?"Mr.":"Mme.";
+				agence.getClient(inputs[0].getText()).setCivilite(civilite);
 				
 				
 				viderInputs();
 				
 			}
-			else JOptionPane.showMessageDialog(this, "Selectionner une voiture!", "no selection", JOptionPane.ERROR_MESSAGE);
+			else JOptionPane.showMessageDialog(this, "Selectionner une location pour la modifier!", "no selection", JOptionPane.ERROR_MESSAGE);
 
 		}}
 		
@@ -231,26 +275,90 @@ public class InterfaceAgence extends JFrame implements ActionListener,MouseListe
 		if(ligne!=-1)
 		{
 			String o= (String) table.getValueAt(ligne,0);
-			inputs[0].setText(agence.getVoiture(o).getMatricule());
-			inputs[1].setText(agence.getVoiture(o).getMarque());
-			inputs[2].setText(agence.getVoiture(o).getModele());
-			inputs[3].setText(Integer.toString(agence.getVoiture(o).getAnneeProd()));
-			inputs[4].setText(Integer.toString(agence.getVoiture(o).getPrix()));
+			Client c=agence.getClient(o);
+			inputs[0].setText(c.getCIN());
+			inputs[1].setText(c.getNom());
+			inputs[2].setText(c.getPrenom());
+			inputs[3].setText(agence.locations.get(c).getMatricule());
 		}
 	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {}
-
-	@Override
-	public void mouseExited(MouseEvent e) {}
 	
+	public void recupererAgence() {
+
+		try {
+
+			// On cree un flux
+
+			DataInputStream dis = new DataInputStream(new FileInputStream("C:\\Users\\S USER\\git\\gestion_location_voiture\\tp3\\src\\voitures.txt"));
+
+			String chaine;
+
+			try {
+				String matricule;
+				String[] ch;
+				for (int i = 0; i < 9; i++) { // 9 voiture  pour hamza
+					matricule = dis.readLine();
+					ch = matricule.split(" ");
+					this.agence.ajouterVoiture(
+							new Voiture(ch[1], ch[2], Integer.parseInt(ch[3]), Integer.parseInt(ch[4]), ch[0]));
+				}
+			} finally {
+				dis.close();
+			}
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+		
+		try {
+
+			//remplire les  locations
+			DataInputStream dis = new DataInputStream(new FileInputStream("C:\\Users\\S USER\\git\\gestion_location_voiture\\tp3\\src\\locations.txt"));
+			String chaine;
+			try {
+				String matricule;
+				String[] ch;
+				for (int i = 0; i < 3; i++) { // 6 voiture  pour hamza
+					matricule = dis.readLine();
+					ch = matricule.split(" ");
+					this.agence.loueVoiture(new Client(ch[1], ch[2], ch[3], ch[4]),
+							this.agence.getVoiture(ch[0]));
+				}
+			} finally {
+				dis.close();
+			}
+		} catch (IOException e) {
+
+			e.printStackTrace();
+		}
+
+	}
+
+	public void RemplirTableau() {
 	
+		String matricule;
+		String[] ch;
+		DefaultTableModel modelee = (DefaultTableModel) table.getModel();
+		this.agence.locations.forEach(
+				(k, v) -> 
+				modelee.addRow(new Object[]
+						{k.getCIN(),
+						k.getNom(),k.getPrenom(),
+						v.getMatricule(),
+						v.getMarque(),v.getModele(),
+						v.getAnneeProd(),v.getPrix()}) 
+				);
+		
+
+			
+
+	}
+
+	public void mousePressed(MouseEvent e) {}public void mouseReleased(MouseEvent e) {}public void mouseEntered(MouseEvent e) {}public void mouseExited(MouseEvent e) {}
+	public static void main(String[] args) {
+		Agence agence =new Agence();
+		
+		new InterfaceAgence(agence);
+	}
 	
 }

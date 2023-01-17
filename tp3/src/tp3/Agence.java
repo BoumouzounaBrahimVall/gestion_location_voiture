@@ -309,4 +309,9 @@ public class Agence {
 
 		} while (key!='0');
 	}
+
+	public Iterator<Voiture> getVoitures() {
+		
+		return voitures.iterator();
+	}
 }

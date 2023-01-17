@@ -31,7 +31,7 @@ import tp3.Agence;
 import tp3.Client;
 import tp3.Voiture;
 
-public class InterfaceAgence extends JFrame implements ActionListener,MouseListener{
+public class InterfaceLocation extends JPanel implements ActionListener,MouseListener{
 
 	private static final long serialVersionUID = 1L;
 	public Agence agence;
@@ -48,13 +48,13 @@ public class InterfaceAgence extends JFrame implements ActionListener,MouseListe
 	JRadioButton Homme,Femme;
 	ButtonGroup groupeHF;
 	String[] colums= {"CIN","NOM","PRENOM","Matricule","Marque","Modele","Annee","Prix"};
-	public InterfaceAgence(Agence agence)
+	public InterfaceLocation(Agence agence)
 	{
 		this.agence=agence;
 	
-		 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		 Container content = this.getContentPane();
-		 content.setLayout(new BorderLayout());
+		// this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		// Container content = this.getContentPane();
+		 this.setLayout(new BorderLayout());
 		panelAjout=new JPanel(new GridLayout(5,2,10,10));
 		panelAjout.setBackground(new Color(113, 195, 227));
 		inputs=new JTextField[8];
@@ -166,14 +166,14 @@ public class InterfaceAgence extends JFrame implements ActionListener,MouseListe
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		panSplit.add(scroller2);
-		content.add(panSplit);
+		this.add(panSplit);
 		
 		recupererAgence();
 		RemplirTableau();
 		
 		
 		this.setSize(1000,500);
-		this.setResizable(false);
+		//this.setResizable(false);
 		this.setVisible(true);
 		this.setLocation(150, 100);
 
@@ -355,10 +355,9 @@ public class InterfaceAgence extends JFrame implements ActionListener,MouseListe
 	}
 
 	public void mousePressed(MouseEvent e) {}public void mouseReleased(MouseEvent e) {}public void mouseEntered(MouseEvent e) {}public void mouseExited(MouseEvent e) {}
-	public static void main(String[] args) {
-		Agence agence =new Agence();
-		
-		new InterfaceAgence(agence);
-	}
-	
+	/*
+	 * public static void main(String[] args) { Agence agence =new Agence();
+	 * 
+	 * new InterfaceLocation(agence); }
+	 */
 }

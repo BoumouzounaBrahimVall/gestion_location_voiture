@@ -18,6 +18,8 @@ public InterfacePrincipale()
 {
 	
 	tablePane=new JTabbedPane();
+	 this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 	agence =new Agence();
 	recupererAgence();
 	CV=new ControlerVoitures(agence);

@@ -223,7 +223,11 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 							inputs[0].getText(),inputs[1].getText(), inputs[2].getText(),
 							v.getMatricule(),v.getMarque(),v.getModele(),v.getAnneeProd(),v.getPrix()
 					}) ;
-					JOptionPane.showMessageDialog(this, "Location ajoute avec succe", "ajout ", JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(this,
+						    "Location ajoute avec succe",
+						    "ajout succee",
+						    JOptionPane.INFORMATION_MESSAGE,
+						    new ImageIcon("correct.png"));
 					CV.colorerVoitureLouees();
 				}
 				else 

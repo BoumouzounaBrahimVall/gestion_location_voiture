@@ -1,5 +1,7 @@
 package tp6;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataInputStream;
@@ -10,9 +12,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 
@@ -25,6 +30,7 @@ public JTabbedPane tablePane;
 public Agence agence;
 public interfaceAccueil ia;
 private 	String ch;
+private JButton save;
 public InterfacePrincipale()
 {
 	
@@ -47,9 +53,25 @@ public InterfacePrincipale()
 	this.setResizable(false);
 	
 	JMenuBar tlb=new JMenuBar();
-	JButton save=new JButton("save");
+	save=new JButton();
+	
+	save.setIcon(new ImageIcon("save.png"));
+	save.setMaximumSize(new Dimension(30,30));
+	save.setBackground(new Color(238,238,238));
+	save.setBorderPainted(false);
+
+	JButton exit=new JButton();
+	exit.setIcon(new ImageIcon("exit.png"));
+	exit.setMaximumSize(new Dimension(30,30));
+	exit.setBackground(new Color(238,238,238));
+	exit.setBorderPainted(false);
+	
 	save.addActionListener((ActionListener) this);
+	exit.addActionListener((ActionListener) this);
+
+	tlb.add(exit);
 	tlb.add(save);
+	
 	this.setJMenuBar(tlb);
 	}
 
@@ -136,7 +158,7 @@ public void sauvegarder()
 		
 		ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("locations.txt"));
 		try {
-			
+			ch="";
 			agence.locations.forEach((k,v)->{
 				ch+=v.getMatricule()+" "+k.getCIN()+" "+k.getNom()
 				+" "+ k.getPrenom()+" "+k.getCivilite()+"\n";
@@ -151,16 +173,22 @@ public void sauvegarder()
 		e.printStackTrace();
 	}
 	
-	
+	JOptionPane.showMessageDialog(this,
+		    "les donnees ont ete sauvegarde avec succees",
+		    "succee",
+		    JOptionPane.INFORMATION_MESSAGE,
+		    new ImageIcon("correct.png"));
 }
 
 @Override
 public void actionPerformed(ActionEvent e) {
 	JButton b=(JButton) e.getSource();
-	if(b.getText().equals("save"))
+	if(b!=save)
 	{
 		sauvegarder();
-	}
+		System.exit(0);
+	}else 		sauvegarder();
+
 }
 	
 

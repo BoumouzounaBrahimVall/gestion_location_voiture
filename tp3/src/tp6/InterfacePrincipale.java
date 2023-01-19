@@ -117,7 +117,6 @@ public void recupererAgence() {
 				e.printStackTrace();
 			}
 			String[] mesString=bigString.split("\n");
-			System.err.println("errrrr " +bigString );
 			String[] ch;
 			for (int i = 0; i < mesString.length; i++) { 
 					ch = mesString[i].split(" ");

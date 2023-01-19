@@ -236,8 +236,8 @@ public class InterfaceLocation extends JPanel implements ActionListener,MouseLis
 					 inputs[0].requestFocus();//cursor
 				}
 				viderInputs();
-				break;
-			}
+				
+			}break;
 		}
 		case "Rendre": {
 			int ligne=table.getSelectedRow();
